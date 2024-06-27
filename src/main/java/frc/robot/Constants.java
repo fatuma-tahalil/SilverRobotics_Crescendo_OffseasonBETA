@@ -33,7 +33,7 @@ public final class Constants {
     public static final int axisX = 0;
     public static final int axisY = 1;
     public static final double rate_limit = 0.5;
-    public static final double stop = 0;
+    public static double stop = 0;
 
   }
   public static class intakeConstants{
@@ -46,6 +46,8 @@ public final class Constants {
   public static class shooterConstants{
     public static final int shooterUpDeviceID = 5; 
     public static final int shooterDownDeviceID = 6;
+    public static final double waitTime = 1;
+    public static final double stop = 0;
 
     public static double shooterSpeed = 1.00;
   }

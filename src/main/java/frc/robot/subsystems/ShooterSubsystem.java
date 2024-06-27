@@ -11,11 +11,13 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 // I don't really understand why it needs to be static and include the ".*"
 import static frc.robot.Constants.shooterConstants.*;
 
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private final CANSparkMax shooterUpMotor = new CANSparkMax(shooterUpDeviceID, MotorType.kBrushed);
-  private final CANSparkMax shooterDownMotor = new CANSparkMax(shooterDownDeviceID, MotorType.kBrushed);
+  private final static CANSparkMax shooterUpMotor = new CANSparkMax(shooterUpDeviceID, MotorType.kBrushed);
+  private final static CANSparkMax shooterDownMotor = new CANSparkMax(shooterDownDeviceID, MotorType.kBrushed);
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
     
@@ -24,10 +26,21 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+  }
+
+  public static Command waitSeconds(double prepareShootingTime){
     shooterUpMotor.set(shooterSpeed);
+    return(null);
+  }
+
+  public static void shoot(){
+    waitSeconds(waitTime);
     shooterDownMotor.set(shooterSpeed);
   }
 
   public void stop() {
+    shooterUpMotor.set(stop);
+    shooterDownMotor.set(stop);
   }
 }
