@@ -8,6 +8,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 //import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Joystick;
@@ -34,17 +35,17 @@ public class RobotContainer{
   // Imports an object of the drive train subsystem
   private final DrivetrainSubsystem drivetrainSubsystem;
   private final DriveCommand driveCommand;
-
+  private final ShooterSubsystem shooterSubsystem;
   public static Joystick driverController;
   //*  Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driverController = new Joystick(OperatorConstants.kDriverControllerPort);
+    driverController = new Joystick(OperatorConstants.controllerPort);
 
     drivetrainSubsystem = new DrivetrainSubsystem();
     driveCommand = new DriveCommand(drivetrainSubsystem);
-
+    shooterSubsystem = new ShooterSubsystem();
     // Sets the camera
     /*UsbCamera camera2UsbCamera = CameraServer.startAutomaticCapture();
     camera2UsbCamera.setResolution(230, 230); */

@@ -16,8 +16,8 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
   
-    public static final int kDriverControllerPort = 1;
-    public static final int kShooterControllerPort = 0;
+    public static final int controllerPort = 1;
+    
   }
   public static class autoConstants{
     // Input auto constants
@@ -28,8 +28,7 @@ public final class Constants {
     public static final int rightDownDeviceID = 2; 
     public static final int leftDownDeviceID = 4;
 
-    public static final int kDriverControllerPort = 1;
-    public static final int kShooterControllerPort = 0;
+    public static final int controllerPort = 1;
     public static final double driveSpeed = 1.00;
     public static final int axisX = 0;
     public static final int axisY = 1;
@@ -45,7 +44,7 @@ public final class Constants {
 
   }
   public static class shooterConstants{
-    public static final int shooterUptDeviceID = 5; 
+    public static final int shooterUpDeviceID = 5; 
     public static final int shooterDownDeviceID = 6;
 
     public static double shooterSpeed = 1.00;
