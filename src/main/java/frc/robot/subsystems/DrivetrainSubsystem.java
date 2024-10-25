@@ -4,49 +4,42 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
-//import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-import frc.robot.Constants.driverConstants;
-import static frc.robot.Constants.driverConstants.*;
+public class DrivetrainSubsystem extends SubsystemBase{
 
 
-public class DrivetrainSubsystem {
+  private final CANSparkMax rightUpMotor;
+  private final CANSparkMax rightDownMotor;
+  private final CANSparkMax leftUpMotor;
+  private final CANSparkMax leftDownMotor;
 
- //private static SlewRateLimiter filter;
-
-  // Do not initialize motors and drivetrain in the constructor!
-  private final CANSparkMax rightUpMotor = new CANSparkMax(rightUpDeviceID, MotorType.kBrushed);//kBrushless
-  private final CANSparkMax rightDownMotor = new CANSparkMax(rightDownDeviceID, MotorType.kBrushed);
-  private final CANSparkMax leftUpMotor = new CANSparkMax(leftUpDeviceID, MotorType.kBrushed);
-  private final CANSparkMax leftDownMotor = new CANSparkMax(leftDownDeviceID, MotorType.kBrushed);
-
-  private final DifferentialDrive m_drivetrain = new DifferentialDrive(leftUpMotor, rightUpMotor);
+  private DifferentialDrive differentialDrive = null; 
 
   public DrivetrainSubsystem() {
+    rightUpMotor = new CANSparkMax(Constants.driverConstants.rightUpDeviceID, MotorType.kBrushed);//kBrushless
+    rightDownMotor = new CANSparkMax(Constants.driverConstants.rightDownDeviceID, MotorType.kBrushed);
+    leftUpMotor = new CANSparkMax(Constants.driverConstants.leftUpDeviceID, MotorType.kBrushed);
+    leftDownMotor = new CANSparkMax(Constants.driverConstants.leftDownDeviceID, MotorType.kBrushed);
 
-   // The back motors automatically follow the front motors
     rightDownMotor.follow(rightUpMotor);
     leftDownMotor.follow(leftUpMotor);
     
+    differentialDrive = new DifferentialDrive(leftUpMotor, rightUpMotor);
+
     rightUpMotor.restoreFactoryDefaults();
     leftUpMotor.restoreFactoryDefaults();
     rightDownMotor.restoreFactoryDefaults();
     leftDownMotor.restoreFactoryDefaults();
-
-
-    //filter = new SlewRateLimiter(rate_limit);
   };
 
-  public void DriveCommand(Joystick controller, double speed) {
-    // Limits the increments that speed can change for smoother driving
-    //double speed_limited = filter.calculate(-drivercontroller.getRawAxis(axisX));
-    m_drivetrain.arcadeDrive(-controller.getRawAxis(driverConstants.axisY)*speed, controller.getRawAxis(driverConstants.axisX)*speed );
+  public void DriveCommand(double moveSpeed, double rotateSpeed) {
+    differentialDrive.arcadeDrive(moveSpeed, rotateSpeed);
   }
 
   public void periodic() {
@@ -55,6 +48,6 @@ public class DrivetrainSubsystem {
     }
 
   public void stop() {
-    m_drivetrain.arcadeDrive(driverConstants.stop, driverConstants.stop);
+    differentialDrive.arcadeDrive(Constants.driverConstants.stop,Constants.driverConstants.stop);
   }
 }
